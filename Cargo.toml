@@ -1,0 +1,30 @@
+[package]
+name = "waybarx"
+version = "0.1.0"
+edition = "2021"
+description = "Modern Wayland bar using GTK4 layer-shell + WebKitGTK (HTML/CSS/JS UI)"
+license = "MIT"
+
+[dependencies]
+anyhow = "1"
+gtk = { version = "0.9", package = "gtk4" }
+gio = { version = "0.20", package = "gio" }
+webkit6 = { version = "0.4", package = "webkit6" }
+gtk4-layer-shell = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+once_cell = "1"
+# Optional IPC crates; enable via features
+swayipc-async = { version = "2", optional = true }
+hyprland = { version = "0.4", optional = true }
+rust-embed = { version = "8", features = ["interpolate-folder-path"] }
+
+[features]
+default = []
+sway = ["swayipc-async"]
+hypr = ["hyprland"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = "s"
