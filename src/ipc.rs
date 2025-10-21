@@ -14,9 +14,9 @@ pub mod sway {
 pub mod hypr {
     use anyhow::Result;
     use hyprland::data::Workspaces;
+    use hyprland::shared::HyprData;
     pub async fn workspaces() -> Result<Vec<String>> {
-        Ok(Workspaces::get()
-            .map(|w| w.into_iter().map(|w| w.name).collect())
-            .unwrap_or_default())
+        let workspaces = Workspaces::get()?;
+        Ok(workspaces.into_iter().map(|w| w.name).collect())
     }
 }
